@@ -29,7 +29,7 @@ public class PlayerRepositoryTest {
 	
 	 @Test
 	 public void findByNameShouldReturnPlayer() {
-	 List<Player> players = prepository.findByName("MKLeo");
+	 List<Player> players = prepository.findByTag("MKLeo");
 	 assertThat(players).hasSize(1);
 	 assertThat(players.get(0).getTag()).isEqualTo("MKLeo");
 	 }
