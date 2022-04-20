@@ -26,17 +26,17 @@ class HarjoitusApplicationTests {
 	private RegionController rcontroller;
 	
 	@Test
-	public void contextLoads() throws Exception{
+	public void contextLoads() throws Exception {
 		assertThat(pcontroller).isNotNull();
 	}
 
 	@Test
-	public void contextLoads2() throws Exception{
+	public void contextLoads2() throws Exception {
 		assertThat(ccontroller).isNotNull();
 	}
 	
 	@Test
-	public void contextLoads3() throws Exception{
+	public void contextLoads3() throws Exception {
 		assertThat(rcontroller).isNotNull();
 	}
 	
