@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>players</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Characters in Super Smash Bros Ultimate</h1>
+
+	<div>
+	<form th:action="@{/logout}" method="post">
+	<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+	</form>
+	</div>
+	<table class="table table-striped">
+		<tbody>
+			<tr>
+				<tr>
+				<th>Name</th>
+				<th sec:authorize="hasAuthority('ADMIN')"></th>
+			</tr>
+			<tr th:each = "character : ${characters}">
+				<td th:text="${character.name}"></td>
+				<td><img src="${character.icon}" class="icon" th:src="${character.icon}" width="40" height="40"></td>
+				<td sec:authorize="hasAuthority('ADMIN')"> <a th:href="@{/deletechar/{id}(id=${character.characterid})}" class="btn btn-xs btn-danger">Delete</a></td>
+			</tr>
+		
+		</tbody>
+	</table>
+	<table>
+	<tbody>
+	<tr>
+	<td sec:authorize="hasAuthority('ADMIN')"><a href="/addchar" class="btn btn-primary">Add Character</a></td>
+	<td> <a href="/playerlist" class="btn btn-primary">Back</a></td>
+	</tr>
+	</tbody>
+	</table>
+</body>
+</html>

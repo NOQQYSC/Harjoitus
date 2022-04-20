@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title> Add Smash Players</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div class="container">
+		<h2>Add Player</h2>
+		<div class="col-md-4">
+		<form th:object="${player}" th:action="@{save}" action="#" method="post">
+		<table>
+		<tr>
+		<td>Tag: <input type="text" id="tag" th:field="*{tag}" class="form-control"/></td>
+		<td th:if="${#fields.hasErrors('tag')}" th:errors="*{tag}">Size must be between 1 and 30</td>
+		<td style="clear:  both; display: block; height: 10px;"></td>
+		
+		</tr>
+		<tr>
+		<td>Region: <select id="regionlist" th:field="*{region}" class="form-control">
+			<option th:each="region: ${regions}" th:value="${region.regionid}" th:text="${region.name}"></option>
+		</select>
+		</td>
+		</tr>
+		
+		<tr>
+		<td>Character: <select id="characterlist" th:field="*{character}" class="form-control">
+			<option th:each="character: ${characters}" th:value="${character.characterid}" th:text="${character.name}"></option>
+		</select>
+		</td>
+		</tr>
+		</table>
+		<div style="clear:  both; display: block; height: 10px;"></div>
+		<input type="submit" class="btn btn-primary" value="Save"></input>
+		</form>
+		</div>
+		<a href="/playerlist" class="btn btn-primary">Back</a>
+	</div>
+		
+</body>
+</html>

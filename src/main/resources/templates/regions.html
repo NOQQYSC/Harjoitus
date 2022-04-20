@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>players</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Regions</h1>
+
+	<div>
+	<form th:action="@{/logout}" method="post">
+	<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+	</form>
+	</div>
+	<table class="table table-striped">
+		<tbody>
+			<tr>
+				<tr>
+				<th>Name</th>
+				<th sec:authorize="hasAuthority('ADMIN')"></th>
+			</tr>
+			<tr th:each = "region : ${regions}">
+				<td th:text="${region.name}"></td>
+				<td><img src="${region.flag}" class="icon" th:src="${region.flag}" width="40" height="40"></td>
+				<td sec:authorize="hasAuthority('ADMIN')"> <a th:href="@{/deleteregion/{id}(id=${region.regionid})}" class="btn btn-xs btn-danger">Delete</a></td>
+			</tr>
+		
+		</tbody>
+	</table>
+	<table>
+	<tbody>
+	<tr>
+	<td sec:authorize="hasAuthority('ADMIN')"><a href="/addregion" class="btn btn-primary">Add Region</a></td>
+	<td> <a href="/playerlist" class="btn btn-primary">Back</a></td>
+	</tr>
+	</tbody>
+	</table>
+</body>
+</html>
