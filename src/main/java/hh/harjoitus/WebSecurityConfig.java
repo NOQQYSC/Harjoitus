@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+
 import hh.harjoitus.web.UserDetailServiceImpl;
 
 
@@ -20,10 +21,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private UserDetailServiceImpl userDetailsService;
 	
+	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-		.authorizeRequests().antMatchers("/", "/css/**", "/playerlist").permitAll()
+		.authorizeRequests().antMatchers("/", "/css/**", "/playerlist/**").permitAll()
 			.and()
 			.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
 			.and()

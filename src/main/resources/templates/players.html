@@ -5,15 +5,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Smash Players</h1>
+	<h1><span th:text="#{title}"></span></h1>
 	<div>
-	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+	<h3 th:inline="text"><span th:text="#{welcome}"></span> [[${#httpServletRequest.remoteUser}]]</h3>
 	</div>
 	<div sec:authorize="hasAnyAuthority('ADMIN', 'USER')">
 	<form th:action="@{/logout}" method="post">
-	<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+	<input type="submit" value="Log Out" class="btn btn-sm btn-danger"/>
 	</form>
 	</div>
+	
+    <button type="button" th:text="#{switch-en}" 
+    onclick="window.location.href='http://localhost:8080/playerlist?localeData=en'"></button>
+    <button type="button" th:text="#{switch-fi}" 
+    onclick="window.location.href='http://localhost:8080/playerlist?localeData=fi'"></button>
 	
 	<div sec:authorize="isAnonymous()">
 	<form th:action="@{/login}" method="post">
@@ -25,11 +30,11 @@
 		<tbody>
 			<tr>
 				<tr>
-				<th>Tag</th>
+				<th><span th:text="#{tag}"></span></th>
 			
-				<th>Region</th>
+				<th><span th:text="#{region}"></span></th>
 				<th></th>
-				<th>Character</th>
+				<th><span th:text="#{char}"></span></th>
 				<th></th>
 				<th sec:authorize="hasAuthority('ADMIN')"></th>
 			</tr>

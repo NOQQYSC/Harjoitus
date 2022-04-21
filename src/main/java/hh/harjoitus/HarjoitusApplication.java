@@ -1,11 +1,20 @@
 package hh.harjoitus;
 
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+
+
 import hh.harjoitus.domain.Character;
 import hh.harjoitus.domain.CharacterRepository;
 import hh.harjoitus.domain.Player;
@@ -16,13 +25,36 @@ import hh.harjoitus.domain.User;
 import hh.harjoitus.domain.UserRepository;
 
 @SpringBootApplication
-public class HarjoitusApplication {
+public class HarjoitusApplication implements WebMvcConfigurer{
 
 	private static final Logger log = LoggerFactory.getLogger(HarjoitusApplication.class);
 	
 	public static void main(String[] args) {
 		SpringApplication.run(HarjoitusApplication.class, args);
 	}
+	
+	
+	
+	@Bean
+	public LocaleResolver localeResolver() {
+	    CookieLocaleResolver localeResolver = new CookieLocaleResolver(); // <--- 2
+	    localeResolver.setDefaultLocale(Locale.US); // <--- 3
+	    return localeResolver;
+	}
+	
+	
+	@Bean
+	public LocaleChangeInterceptor localeChangeInterceptor() {
+	    LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+	    localeChangeInterceptor.setParamName("localeData");
+	    return localeChangeInterceptor;
+	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry interceptorRegistry) {
+	    interceptorRegistry.addInterceptor(localeChangeInterceptor());
+	}
+	
 	@Bean
 	public CommandLineRunner demo(PlayerRepository prepository, CharacterRepository crepository, UserRepository userrepository, RegionRepository rrepository) {
 		return (args) -> {
